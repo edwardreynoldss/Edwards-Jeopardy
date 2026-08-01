@@ -192,6 +192,9 @@ html, body {
   align-items: center;
   justify-content: center;
   min-height: 54px;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  line-height: 1.2;
 }
 
 .host-cell {
