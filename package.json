@@ -1,0 +1,17 @@
+{
+  "name": "jeopardy-local",
+  "version": "1.0.0",
+  "description": "A local-network, customizable Jeopardy party game with host, TV display, and contestant buzzer views.",
+  "private": true,
+  "main": "server/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5",
+    "qrcode": "^1.5.4"
+  }
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Jeopardy! — Buzzer</title>
+<link rel="icon" href="/favicon.svg" />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="play.css" />
+</head>
+<body>
+
+  <div id="join-screen" class="join-screen">
+    <div class="join-card card">
+      <div class="title-text" style="font-size:34px; margin-bottom: 4px;">JEOPARDY!</div>
+      <div style="color:#cfd6ff; margin-bottom:20px;">Join the game</div>
+
+      <div id="existing-players" class="existing-players"></div>
+
+      <div id="new-player-block">
+        <div style="font-weight:700; margin: 14px 0 8px; color: var(--jp-gold-soft);">New contestant</div>
+        <input id="name-input" type="text" maxlength="20" placeholder="Enter your name" />
+        <button id="join-btn" class="btn btn-gold" style="margin-top:10px; width:100%;">Join Game</button>
+      </div>
+      <div id="full-message" style="display:none; color: var(--jp-gold-soft); margin-top:14px;">
+        The game is full (4 contestants). Ask the host to remove a player, or rejoin as an existing contestant above.
+      </div>
+    </div>
+  </div>
+
+  <div id="game-screen" class="game-screen" style="display:none;">
+    <div class="player-header">
+      <div id="player-name" class="player-name">—</div>
+      <div id="player-score" class="player-score">$0</div>
+    </div>
+
+    <button id="buzz-btn" class="buzz-btn" disabled>
+      <span id="buzz-label">WAITING…</span>
+    </button>
+
+    <div id="overlay" class="overlay" style="display:none;">
+      <div class="overlay-card card" id="overlay-content"></div>
+    </div>
+
+    <div class="footer-msg" id="footer-msg"></div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/sounds.js"></script>
+  <script src="play.js"></script>
+</body>
+</html>

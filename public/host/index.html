@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jeopardy! — Host Console</title>
+<link rel="icon" href="/favicon.svg" />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="host.css" />
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="title-text" style="font-size:22px;">JEOPARDY!</span>
+    <span class="pill"><span class="dot" id="conn-dot"></span> <span id="conn-label">Connecting…</span></span>
+  </div>
+  <div class="topbar-mid" id="board-tabs"></div>
+  <div class="topbar-right">
+    <button class="btn btn-ghost btn-sm" id="open-editor-btn">📝 Editor</button>
+    <button class="btn btn-ghost btn-sm" id="open-settings-btn">⚙️ Settings</button>
+    <button class="btn btn-red btn-sm" id="reset-game-btn">↺ Reset Game</button>
+  </div>
+</div>
+
+<div class="host-layout">
+  <div class="main-panel">
+
+    <section id="phase-lobby" class="phase-panel">
+      <h2 class="section-title">Lobby</h2>
+      <p style="color:#c4cdf5;">Share the join link/QR from the landing page with your contestants. Once everyone has joined, hit Start Game.</p>
+      <div id="lobby-player-list" class="lobby-player-list"></div>
+      <button class="btn btn-gold" id="start-game-btn" style="font-size:20px; padding:16px 40px;">▶ Start Game</button>
+    </section>
+
+    <section id="phase-board" class="phase-panel" style="display:none;">
+      <div class="board-toolbar">
+        <h2 class="section-title" id="board-name-label" style="margin:0;"></h2>
+        <button class="btn btn-blue btn-sm" id="final-jeopardy-btn">🏁 Start Final Jeopardy</button>
+      </div>
+      <div class="host-board-grid" id="host-board-grid"></div>
+    </section>
+
+    <section id="phase-clue" class="phase-panel" style="display:none;">
+      <div id="clue-panel-content"></div>
+    </section>
+
+    <section id="phase-final" class="phase-panel" style="display:none;">
+      <div id="final-panel-content"></div>
+    </section>
+
+    <section id="phase-ended" class="phase-panel" style="display:none;">
+      <h2 class="section-title">Final Standings</h2>
+      <div id="ended-standings"></div>
+      <button class="btn btn-gold" id="new-game-btn" style="margin-top:16px;">Start a New Game</button>
+    </section>
+
+  </div>
+
+  <div class="side-panel">
+    <h3 class="section-title">Contestants</h3>
+    <div id="player-list"></div>
+  </div>
+</div>
+
+<!-- Editor Modal -->
+<div id="editor-modal" class="modal" style="display:none;">
+  <div class="modal-box modal-lg">
+    <div class="modal-header">
+      <h2>Board Editor</h2>
+      <button class="btn btn-ghost btn-sm" id="close-editor-btn">✕ Close</button>
+    </div>
+    <div class="modal-body" id="editor-body"></div>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div id="settings-modal" class="modal" style="display:none;">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Settings</h2>
+      <button class="btn btn-ghost btn-sm" id="close-settings-btn">✕ Close</button>
+    </div>
+    <div class="modal-body" id="settings-body"></div>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/sounds.js"></script>
+<script src="host.js"></script>
+</body>
+</html>

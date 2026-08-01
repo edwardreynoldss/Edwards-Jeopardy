@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jeopardy! — Local Game</title>
+<link rel="icon" href="/favicon.svg" />
+<link rel="stylesheet" href="/css/style.css" />
+<style>
+  body { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+  .landing { max-width: 920px; width: 100%; padding: 32px; text-align: center; }
+  .logo { font-size: 64px; margin-bottom: 6px; }
+  .subtitle { color: var(--jp-gold-soft); margin-bottom: 36px; font-size: 16px; }
+  .roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px; }
+  .role-card { padding: 28px 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-decoration: none; }
+  .role-card .icon { font-size: 40px; }
+  .role-card .label { font-family: var(--font-display); font-size: 20px; color: var(--jp-white); }
+  .role-card .desc { font-size: 13px; color: #cfd6ff; }
+  .role-card:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
+  .join-info { display: flex; gap: 24px; align-items: center; justify-content: center; flex-wrap: wrap; }
+  .qr-box { background: white; padding: 10px; border-radius: 10px; }
+  .qr-box img { display: block; width: 160px; height: 160px; }
+  .addr-list { text-align: left; font-size: 14px; line-height: 1.8; }
+  .addr-list code { background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 6px; }
+  @media (max-width: 640px) {
+    .roles { grid-template-columns: 1fr; }
+    .join-info { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+  <div class="landing">
+    <div class="logo title-text">JEOPARDY!</div>
+    <div class="subtitle">A local, customizable party game — no internet required.</div>
+
+    <div class="roles">
+      <a class="role-card card" href="/host/">
+        <div class="icon">🎙️</div>
+        <div class="label">Host</div>
+        <div class="desc">Run the game, read clues, judge answers, manage scores.</div>
+      </a>
+      <a class="role-card card" href="/display/">
+        <div class="icon">📺</div>
+        <div class="label">TV Display</div>
+        <div class="desc">Open this on whichever screen/TV everyone watches.</div>
+      </a>
+      <a class="role-card card" href="/play/">
+        <div class="icon">🔔</div>
+        <div class="label">Join as Contestant</div>
+        <div class="desc">Pick a name and get your buzzer (max 4 players).</div>
+      </a>
+    </div>
+
+    <div class="card join-info">
+      <div class="qr-box">
+        <img id="qr-img" alt="QR code to join" />
+      </div>
+      <div class="addr-list">
+        <div style="font-weight:700; color: var(--jp-gold); margin-bottom:6px;">Have contestants scan the QR code<br/>or open this on their phone:</div>
+        <div id="addr-lines">Loading network info…</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    socket.on('network:info', ({ port, addresses }) => {
+      const lines = document.getElementById('addr-lines');
+      const primary = addresses[0];
+      if (!primary) {
+        lines.innerHTML = `<code>http://localhost:${port}/play/</code> (no LAN address detected — contestants must use this machine)`;
+        document.getElementById('qr-img').src = `/api/qr?text=${encodeURIComponent('http://localhost:' + port + '/play/')}`;
+        return;
+      }
+      lines.innerHTML = addresses.map((a) => `<code>http://${a}:${port}/play/</code>`).join('<br/>');
+      document.getElementById('qr-img').src = `/api/qr?text=${encodeURIComponent('http://' + primary + ':' + port + '/play/')}`;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jeopardy! — Display</title>
+<link rel="icon" href="/favicon.svg" />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="display.css" />
+</head>
+<body>
+
+  <div id="lobby-screen" class="screen lobby-screen">
+    <div class="title-text" style="font-size: clamp(48px, 9vw, 110px); text-align:center;">JEOPARDY!</div>
+    <div class="lobby-sub">Waiting for the host to start the game…</div>
+    <div class="lobby-body">
+      <div class="lobby-players" id="lobby-players"></div>
+      <div class="lobby-qr card">
+        <div class="qr-box"><img id="lobby-qr-img" alt="Join QR code" /></div>
+        <div id="lobby-addr" class="lobby-addr"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="board-screen" class="screen board-screen" style="display:none;">
+    <div class="board-title" id="board-title"></div>
+    <div class="board-grid" id="board-grid"></div>
+    <div class="score-bar" id="score-bar"></div>
+  </div>
+
+  <div id="clue-screen" class="screen clue-screen" style="display:none;">
+    <div class="clue-topbar">
+      <div class="clue-category" id="clue-category"></div>
+      <div class="clue-value" id="clue-value"></div>
+    </div>
+    <div class="clue-body" id="clue-body"></div>
+    <div class="score-bar" id="clue-score-bar"></div>
+  </div>
+
+  <div id="dd-splash" class="screen dd-splash" style="display:none;">
+    <div class="dd-text">DAILY DOUBLE!</div>
+    <div class="dd-sub" id="dd-sub"></div>
+  </div>
+
+  <div id="final-screen" class="screen final-screen" style="display:none;">
+    <div class="board-title">FINAL JEOPARDY!</div>
+    <div class="final-body" id="final-body"></div>
+    <div class="score-bar" id="final-score-bar"></div>
+  </div>
+
+  <div id="ended-screen" class="screen ended-screen" style="display:none;">
+    <div class="title-text" style="font-size: clamp(40px, 7vw, 80px);">GAME OVER</div>
+    <div class="standings" id="standings"></div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/sounds.js"></script>
+  <script src="display.js"></script>
+</body>
+</html>
